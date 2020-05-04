@@ -1,0 +1,259 @@
+1) Which are legal?
+
+A) var x = 99.9;
+B) public var x = "Hello";
+C) var []x = new int[]{1, 2, 3};
+D) public void doIt(var x) {}
+E) var x = new int[]{1,2,3,};
+
+2) What is the type of:
+
+99
+?
+A) byte
+B) int
+C) long
+D) double
+E) all of the above
+
+3) Which is true?
+
+FALSE A) static methods cannot access instance fields
+TRUE  B) 'this' exists only in instance methods
+TRUE  C) access to instance fields is controlled only by private/public etc and scope
+TRUE  D) This would be legal, if x is an instance field of class MyStuff
+   public static doStuff(MyStuff ms) { int x = ms.x; }
+
+4) Given:
+class X {
+    static int MAX_VAL = 100;
+    int value = 99;
+    public void setVal(int x) {
+      if (x <= MAX_VAL) value = x;
+    }
+  }
+and:
+    X a = new X();
+    X b = new X();
+    a.setVal(120);
+    System.out.print(a.value + ", ");
+    b.MAX_VAL = 150;
+    a.setVal(140);
+    System.out.println(a.value);
+
+What is the result?
+    A) 99, 99
+    B) 120, 140
+    C) 99, 140
+    D) Compilation failure
+    E) Exception at runtime
+
+Q5) Given:
+  class Y {
+    static String sayHi() { return "Y-Hello"; }
+    String sayHi2() { return "Y-Hello2"; }
+  }
+and:
+  class Z extends Y { // Liskov substution principle
+    static String sayHi() { return "Z-Hello"; }
+    String sayHi2() { return "Z-Hello2"; }
+  }
+and:
+    Y y = new Z();
+    System.out.println(y.sayHi() + ", " + y.sayHi2());
+
+What is the result?
+    A) Y-Hello, Y-Hello2
+    B) Y-Hello, Z-Hello2
+    C) Z-Hello, Z-Hello2
+    D) Z-Hello, Y-Hello2
+    E) Compilation fails
+
+Q6) Given:
+
+void doStuff() {
+  int x;
+  if (Math.random() >= 0) {
+    x = 99;
+  }
+  sout("x is " + x);
+}
+what is the result of invoking doStuff();
+
+A) 0
+B) 99
+C) A or B depening on the random number
+D) Compilation fails
+E) Exception might arise
+
+Q7) Given:
+class P {
+  private int x;
+  public P(int v) {
+    x = v;
+    sout("in P constructor");
+  }
+}
+class Q extends P {
+}
+what is the result of this:
+P p = new Q();
+
+A) no output
+B) in P constructor
+C) Exception at runtime
+D) Compilation fails
+
+Q8) Given:
+abstract class P {
+  private int x;
+  void doMoreStuff() { sout("Hello from P"); }
+  abstract void doStuff();
+}
+class Q extends P {
+  void doMoreStuff() { sout("Hello from Q"); }
+}
+what is the result of this:
+new Q().doMoreStuff();
+
+A) Hello from P Hello from Q
+B) Hello from Q Hello from P
+C) Hello from Q -- popular
+D) Exception at runtime
+E) Compilation fails -- popular
+
+9) Given:
+abstract class P { // line n1
+  private int x;
+  void doMoreStuff() { sout("Hello from P"); }
+  abstract void doStuff(); // line n2
+}
+abstract class Q extends P { // line n3
+  void doMoreStuff() { sout("Hello from Q"); }
+}
+
+Which individually would make this work?
+A) remove keyword abstract from line n1
+B) remove keyword abstract from line n2
+C) Both A and B together
+D) add the keyword abstract to line n3
+E) add an implementation of doStuff() to class Q
+
+10) Given:
+class X {
+  public void doStuff(int a, String b) {}
+}
+
+Which would be valid overloads if added to class X?
+
+A) public void doStuff(int b, String c) {}
+B) public int doStuff(int a, String b) { return 0; }
+C) public void doStuffX(int b, String c) {}
+D) public int doStuff(String c) {return 0;}
+E) public String doStuff(int a, String b, Date d) { return null; }
+
+11) Given:
+class X {
+    public int getValue() {return 1;}
+}
+
+which of these methods may individually be added
+to a subclass of this X?
+A) public int getValue(int x) {return 1;}
+B) public String getValue() {return "Hello";}
+C) public String getValue(int x) {return "Hello";}
+D) A), B), and C)
+E) A), and C)
+
+12) Given:
+  class Q23Base {
+    public Q23Base get() { return null; }
+  }
+  class Q23Sub extends Q23Base {
+    /* Which methods may individually be added to this class?
+    /*A)*/ //public Q23Base get() { return null; }
+    /*B)*/ //public Q23Sub get() { return null; }
+    /*C)*/ //public Runnable get() { return null; }
+    // A), B), and C)
+    // A), and B)
+  }
+
+13) Given:
+  class Base {
+    void doBaseStuff() {System.out.println("doBaseStuff");}
+  }
+
+  class Sub extends Base {
+    void doBaseStuff() {System.out.println("doSubStuff");}
+    void doOtherStuff() {
+      System.out.println("doOtherStuff");
+    }
+  }
+
+Base b = new Sub();
+b.doOtherStuff();
+
+What is the result?
+    A) doSubStuff
+    B) doOtherStuff
+    C) doBaseStuff
+    D) Exception at runtime
+    E) Compilation failure
+
+Q14) Given:
+    Base b = new Sub();
+    ((StringBuilder)b).concat("x");
+
+What is the result?
+    A) doSubStuff
+    B) doOtherStuff
+    C) doBaseStuff
+    D) Exception at runtime
+    E) Compilation failure
+
+Q15) Given
+    Base b = new Sub();
+    ((Runnable)b).run();
+
+What is the result?
+    A) doSubStuff
+    B) doOtherStuff
+    C) doBaseStuff
+    D) Exception at runtime
+    E) Compilation failure
+
+27 A) Full Lambdas for Java 11
+30 B) Modules
+6 C) access modifiers, encapsulation
+3 D) command-line operations
+
+Q16)
+  class Base { 
+    void doBaseStuff() {System.out.println("doBaseStuff");} 
+  }
+  class Sub extends Base {
+    void doBaseStuff() {System.out.println("doSubStuff");}
+    void doOtherStuff() { System.out.println("doOtherStuff"); }
+  }
+
+In the Base and Sub classes, which are true in isolation?
+A) doBaseStuff in Base can be marked throws Exception without causing errors
+B) doBaseStuff in Base can be marked throws RuntimeException without causing errors
+C) doBaseStuff in Sub can be marked throws Exception without causing errors
+D) doBaseStuff in Sub can be marked throws RuntimeException without causing errors
+E) if doBaseStuff in Base were marked throws Exception, then doBaseStuff in Sub can be marked throws IOException without causing errors
+
+Q17) In the Base and Sub classes, which are true in isolation?
+N A) doBaseStuff in Base can be marked public without causing errors
+Y B) doBaseStuff in Base can be marked private without causing errors
+Y C) doBaseStuff in Sub can be marked public without causing errors
+Y D) doBaseStuff in Sub can be marked protected without causing errors
+N E) doBaseStuff in Sub can be marked private without causing errors
+
+Q18) Which are legal?
+A) Object test = s -> s.length() > 3;
+B) Criterion<LocalDate> cld = (String s) -> {return s.length() > 3;};
+C) Criterion<Student> cs = s -> return s.getGrade() > 80;
+D) Criterion<Student> cs = (s) -> s.getGrade();
+E) Criterion<Object> co = o -> o == otherObject;
+
